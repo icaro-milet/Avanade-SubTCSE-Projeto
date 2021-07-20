@@ -1,27 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Aggregates\" />
-    <None Remove="Aggregates\EmployeeRole\" />
-    <None Remove="Aggregates\EmployeeRole\Entities\" />
-    <None Remove="Aggregates\EmployeeRole\Services\" />
-    <None Remove="Aggregates\EmployeeRole\Validators\" />
-    <None Remove="Aggregates\EmployeeRole\Interfaces\" />
-    <None Remove="Aggregates\EmployeeRole\Interfaces\Services\" />
-    <None Remove="Aggregates\EmployeeRole\Interfaces\Repository\" />
+    <Folder Include="Aggregates\Employee\ValueObject\" />
   </ItemGroup>
+
   <ItemGroup>
-    <Folder Include="Aggregates\" />
-    <Folder Include="Aggregates\EmployeeRole\" />
-    <Folder Include="Aggregates\EmployeeRole\Entities\" />
-    <Folder Include="Aggregates\EmployeeRole\Services\" />
-    <Folder Include="Aggregates\EmployeeRole\Validators\" />
-    <Folder Include="Aggregates\EmployeeRole\Interfaces\" />
-    <Folder Include="Aggregates\EmployeeRole\Interfaces\Services\" />
-    <Folder Include="Aggregates\EmployeeRole\Interfaces\Repository\" />
+    <PackageReference Include="FluentValidation" Version="10.2.3" />
+    <PackageReference Include="MongoDB.Driver" Version="2.12.4" />
   </ItemGroup>
+
 </Project>

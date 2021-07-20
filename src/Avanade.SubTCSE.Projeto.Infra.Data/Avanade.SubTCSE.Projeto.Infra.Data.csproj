@@ -4,4 +4,8 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Avanade.SubTCSE.Projeto.Domain\Avanade.SubTCSE.Projeto.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
