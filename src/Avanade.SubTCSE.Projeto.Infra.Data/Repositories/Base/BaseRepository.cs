@@ -1,6 +1,9 @@
 ﻿using Avanade.SubTCSE.Projeto.Domain.Aggregates;
 using Avanade.SubTCSE.Projeto.Domain.Base.Repository;
+using Avanade.SubTCSE.Projeto.Domain.Base.Repository.MongoDB;
+using MongoDB.Bson;
 using MongoDB.Driver;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Avanade.SubTCSE.Projeto.Infra.Data.Repositories.Base
@@ -10,16 +13,38 @@ namespace Avanade.SubTCSE.Projeto.Infra.Data.Repositories.Base
     {
         private readonly IMongoCollection<TEntity> _collection;
 
-        public virtual async Task<TEntity> Add(TEntity entity)
+        protected BaseRepository(IMongoDBContext mongoDBContext, string collectioName)
+        {
+            _collection = mongoDBContext.GetCollection<TEntity>(collectioName);
+        }
+
+        public virtual async Task<TEntity> AddAsync(TEntity entity)
         {
             await _collection.InsertOneAsync(entity);
 
             return entity;
         }
 
-        public async Task<TEntity> FindById(Tid Id)
+        public async void DeleteByIdAsync(Tid id)
         {
-            throw new System.NotImplementedException();
+            var deleteFilter = Builders<TEntity>.Filter.Eq("_id", id);
+            await _collection.DeleteOneAsync(deleteFilter);
+        }
+
+        public async Task<List<TEntity>> FindAllAsync()
+        {
+            var all = await _collection.FindAsync(new BsonDocument());
+
+            return await all.ToListAsync();
+        }
+
+        public async Task<TEntity> FindByIdAsync(Tid Id)
+        {
+            var filter = Builders<TEntity>.Filter.Eq("_id", Id);
+
+            var resultado = await _collection.FindAsync(filter);
+
+            return resultado.FirstOrDefault();
         }
     }
 }
